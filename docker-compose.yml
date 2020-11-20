@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+
+  reverse-proxy:
+    image: reverse_proxy:1.17.10
+    container_name: reverse_proxy
+    depends_on:
+      - flask_app
+      - flask_app2
+    volumes:
+      - ./reverse_proxy/reverse_proxy.conf:/etc/reverse_proxy/reverse_proxy.conf
+    ports:
+      - 80:80
+  flask_app:
+    image: flask_app1
+    container_name: flask_app
+    build: ./flask_app
+    restart: always
+    environment:
+      - APP_NAME=MyFlaskApp
+    expose:
+      - 8080:80
+  flask_app2:
+    image: flask_app2
+    container_name: flask_app2
+    build: ./flask_app2
+    restart: always
+    environment:
+      - APP_NAME=MyFlaskApp
+    expose:
+      - 5001:5001
