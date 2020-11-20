@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   reverse-proxy:
-    image: reverse_proxy:1.17.10
+    image: nginx:1.17.10
     container_name: reverse_proxy
     depends_on:
       - flask_app
