@@ -27,6 +27,6 @@ services:
     build: ./flask_app2
     restart: always
     environment:
-      - APP_NAME=MyFlaskApp
+      - APP_NAME=MyFlaskApp2
     expose:
       - 5001:5001
