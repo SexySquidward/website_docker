@@ -35,6 +35,6 @@ def sumbit_tester(FN,LN,age):
 def Pull_Tester():
     database = conn_to_db()
     cursor = database.cursor()
-    cursor.execute("SELECT * testers")
+    cursor.execute("SELECT * tester")
     results = cursor.fetchall()
     return results
