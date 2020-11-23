@@ -25,7 +25,7 @@ def conn_to_db():
 def sumbit_tester(FN,LN,age):
     database = conn_to_db()
     cursor = database.cursor()
-    sql = 'INSERT INTO testers (Firstname,Lastname,Age)'
+    sql = 'INSERT INTO testers (Firstname,Lastname,Age) VALUES (%s, %s,%s)'
     val = (FN,LN,age)
     cursor.execute(sql,val)
     database.commit()
