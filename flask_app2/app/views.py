@@ -15,7 +15,7 @@ def index():
         db.sumbit_tester(form.firstname.data, form.lastname.data, form.age.data)
         return redirect(url_for('viewdata'))
 
-    return render_template('insert-data.html',form=form)
+    return render_template('insertdata.html',form=form)
 
 @app.route('/data/view')
 def viewdata():
