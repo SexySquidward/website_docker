@@ -10,9 +10,8 @@ services:
       - flask_app2
     volumes:
       - ./reverse_proxy/reverse_proxy.conf:/etc/reverse_proxy/reverse_proxy.conf
-      - ./data/certbot.conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+      - ./etc/letsencrypt/live/haqio.duckdns.org/fullchain.pem:/etc/letsencrypt/live/haqio.duckdns.org/fullchain.pem
+      - ./etc/data/letsencrypt/live/haqio.duckdns.org/privkey.pem:/etc/data/letsencrypt/live/haqio.duckdns.org/privkey.pem
     ports:
       - 80:80
   flask_app:
@@ -33,9 +32,4 @@ services:
       - APP_NAME=MyFlaskApp2
     ports:
       - 5001:5001
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./data/certbot.conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
