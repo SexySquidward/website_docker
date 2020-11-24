@@ -10,19 +10,21 @@ services:
       - flask_app2
     volumes:
       - ./reverse_proxy/reverse_proxy.conf:/etc/reverse_proxy/reverse_proxy.conf
-      - ./dhparam:/etc/nginx/conf.d
-      - ./certbot/conf:/ect/nginx/ssl
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
+      - dhparam:/etc/nginx/dhparam
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     ports:
       - 80:80
       - 433:43
-  certbot:
-  image: certbot/certbot:latest
-  command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email style.coder27@gmail.com --agree-tos --no-eff-email -d haqio.duckdns.org
-  volumes:
-  - ./certbot/conf:/etc/letsencrypt
-  - ./certbot/logs:/var/log/letsencrypt
-  - ./certbot/data:/usr/share/nginx/html/letsencrypt
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-le
+    volumes_from:
+      - reverse-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: always
   flask_app:
     image: flask_app1
     container_name: flask_app
