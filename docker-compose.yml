@@ -10,6 +10,8 @@ services:
       - flask_app2
     volumes:
       - ./reverse_proxy/reverse_proxy.conf:/etc/reverse_proxy/reverse_proxy.conf
+      - ./letsencrypt/live/haqio.duckdns.org:/etc/letsencrypt/live/haqio.duckdns.org/fullchain.pem;
+      - ./letsencrypt/live/haqio.duckdns.org:/etc/letsencrypt/live/haqio.duckdns.org/privkey.pem
     ports:
       - 80:80
   flask_app:
