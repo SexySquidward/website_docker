@@ -17,12 +17,12 @@ services:
       - 80:80
       - 433:43
   certbot:
-    image: certbot/certbot:latest
+    image: certbot/certbot
     command: certonly --webroot --webroot-path=/var/www/certbot --email style.coder27@gmail.com --agree-tos --no-eff-email -d haqio.co -d www.haqio.co
-        volumes:
-            - ./certbot/conf:/etc/letsencrypt
-            - ./certbot/logs:/var/log/letsencrypt
-            - ./certbot/data:/var/www/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/logs:/var/log/letsencrypt
+      - ./certbot/data:/var/www/certbot
   flask_app:
     image: flask_app1
     container_name: flask_app
