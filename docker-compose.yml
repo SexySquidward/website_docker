@@ -18,7 +18,7 @@ services:
       - 433:433
   certbot:
     image: certbot/certbot
-    command: certonly --webroot --webroot-path=/var/www/certbot --email style.coder27@gmail.com --agree-tos --no-eff-email -d 192.168.1.8
+    command: certonly --webroot --webroot-path=/var/www/certbot --email style.coder27@gmail.com --agree-tos --no-eff-email -d haqio.duckdns.org
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
