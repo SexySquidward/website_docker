@@ -4,27 +4,25 @@ services:
 
   reverse-proxy:
     build: ./reverse_proxy
-    container_name: reverse_proxy
+    container_name: nginx
     depends_on:
       - flask_app
       - flask_app2
     volumes:
-      - ./reverse_proxy/reverse_proxy.conf:/etc/reverse_proxy/reverse_proxy.conf
-      - dhparam:/etc/nginx/dhparam
-      - certs:/etc/nginx/certs:ro
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+       - ./public:/var/www/html
+       - ./conf.d:/etc/nginx/conf.d
+       - ./certbot/conf:/etc/nginx/ssl
+       - ./certbot/data:/var/www/certbot
     ports:
       - 80:80
       - 433:43
-  letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: nginx-proxy-le
-    volumes_from:
-      - reverse-proxy
-    volumes:
-      - certs:/etc/nginx/certs:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    restart: always
+  certbot:
+    image: certbot/certbot:latest
+    command: certonly --webroot --webroot-path=/var/www/certbot --email style.coder27@gmail.com --agree-tos --no-eff-email -d haqio.co -d www.haqio.co
+        volumes:
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/logs:/var/log/letsencrypt
+            - ./certbot/data:/var/www/certbot
   flask_app:
     image: flask_app1
     container_name: flask_app
