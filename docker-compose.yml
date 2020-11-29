@@ -15,7 +15,7 @@ services:
        - ./certbot/data:/var/www/certbot
     ports:
       - 80:80
-      - 433:43
+      - 433:433
   certbot:
     image: certbot/certbot
     command: certonly --webroot --webroot-path=/var/www/certbot --email style.coder27@gmail.com --agree-tos --no-eff-email -d haqio.co -d www.haqio.co
