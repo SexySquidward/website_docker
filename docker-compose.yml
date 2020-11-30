@@ -9,7 +9,7 @@ services:
       - flask_app
       - flask_app2
     volumes: 
-    - /etc/letsencrypt/live/haqio.duckdns.org:/etc/ssl/nginx
+    - /etc/letsencrypt/live:/etc/ssl/nginx
     ports:
       - 80:80
       - 433:433
