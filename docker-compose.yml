@@ -21,8 +21,6 @@ services:
     restart: always
     environment:
       - APP_NAME=MyFlaskApp
-    volumes: 
-    - /etc/letsencrypt:/app/ssl
     ports:
       - 8080:80
   flask_app2:
