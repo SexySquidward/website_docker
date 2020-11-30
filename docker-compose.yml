@@ -9,20 +9,11 @@ services:
       - flask_app
       - flask_app2
     volumes:
-       - ./public:/var/www/html
-       - ./conf.d:/etc/nginx/conf.d
-       - ./certbot/conf:/etc/nginx/ssl
-       - ./certbot/data:/var/www/certbot
+     - /etc/letsencrypt/live/haqio.duckdns.org:/etc/nginx/certs
     ports:
       - 80:80
       - 433:433
-  certbot:
-    image: certbot/certbot
-    command: certonly --webroot --webroot-path=/var/www/certbot --email style.coder27@gmail.com --agree-tos --no-eff-email -d haqio.duckdns.org -d www.haqio.duckdns.org
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/logs:/var/log/letsencrypt
-      - ./certbot/data:/var/www/certbot
+
   flask_app:
     image: flask_app1
     container_name: flask_app
