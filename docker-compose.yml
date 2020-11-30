@@ -8,8 +8,6 @@ services:
     depends_on:
       - flask_app
       - flask_app2
-    volumes:
-     - /etc/letsencrypt/live/haqio.duckdns.org:/etc/ssl/nginx
     ports:
       - 80:80
       - 433:433
